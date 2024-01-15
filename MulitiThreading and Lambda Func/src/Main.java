@@ -1,7 +1,12 @@
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.function.Consumer;
+import java.util.function.Function;
+import java.util.function.IntConsumer;
+import java.util.function.IntPredicate;
 import java.util.function.Predicate;
+import java.util.function.Supplier;
 
 import hotels.FilterCondition;
 import hotels.Hotel;
@@ -45,12 +50,37 @@ public class Main {
     public static void main(String[] args) {
         // underStandingLambdaFunctions();
         
-        combiningPredicates();
+        // combiningPredicates();
+
+        differentInbuiltInterfaces();
+    }
+
+    private static void differentInbuiltInterfaces() {
+       
+        List<Integer> lst = new ArrayList<>(List.of(5,4,3,2,1));
+    
+       Consumer<Integer> consumer = value -> System.out.println(value);
+       IntConsumer intConsumer = value -> System.out.println(value); //  this can also be used
+       lst.forEach(consumer);
+
+       Supplier<Double> supplier = () -> Math.random();
+       System.out.println("Random values from supplier: " + supplier.get());
+
+       Function<String,Integer> getLen =  val -> val.length();
+       System.out.println("Length of string from Function interface: "+  getLen.apply("Ankit Kumar"));
+
+       Function<Integer,Integer> square = a -> a*a;
+       Function<Integer,Integer> addOne = a -> a+1; 
+       Integer value = square.andThen(addOne).apply(6);
+       System.out.println("value of combined interface: "+ value);
     }
 
     private static void combiningPredicates() {
+        
         // predicate is a functional interface which also contains test abstract method.
         Predicate<Integer> divisibleBy2 = (number) -> { return number%2 == 0;}; 
+        // this can be used primitive data type and will have better performance
+        IntPredicate intDivisibleBy2 = (number) -> { return number%2 == 0;};  
         Predicate<Integer> divisibleBy3 = number -> number%3 == 0;
 
         Predicate<Integer> divisibleBy6 = divisibleBy2.and(divisibleBy3);
