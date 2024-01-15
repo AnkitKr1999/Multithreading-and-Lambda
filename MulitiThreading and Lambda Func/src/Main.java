@@ -30,16 +30,24 @@ public class Main {
         System.out.println("Main is starting");
         HotelService hotelService = new HotelService();
 
-        // Using Anonymous inner class to pass function as a variable
+        // Using Anonymous inner class to pass function in a method.
 
-        List<Hotel> fiveStarHotels = hotelService.filterHotels(new FilterCondition() {
-            @Override
-            public boolean test(Hotel hotel) {
-                return hotel.getHotelType() == HotelType.FIVE_STAR;
-            }
+        // List<Hotel> fiveStarHotels = hotelService.filterHotels(new FilterCondition() {
+        //     @Override
+        //     public boolean test(Hotel hotel) {
+        //         return hotel.getHotelType() == HotelType.FIVE_STAR;
+        //     }
+        // });
+
+        // using lamdba function to pass function in a method.
+        List<Hotel> fiveStarHotels = hotelService.filterHotels((Hotel hotel) -> {
+            return hotel.getHotelType() == HotelType.FIVE_STAR;
         });
         System.out.println("Five Star Hotels " + fiveStarHotels);
 
+        System.out.println();
+        
+        // Using Anonymous inner class to pass function in a method.
         List<Hotel> hotelsMoreThan2Ratings = hotelService.filterHotels(new FilterCondition() {
             @Override
             public boolean test(Hotel hotel) {
