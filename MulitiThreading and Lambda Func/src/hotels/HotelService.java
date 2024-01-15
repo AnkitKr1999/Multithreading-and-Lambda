@@ -2,6 +2,7 @@ package hotels;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Predicate;
 
 public class HotelService {
     List<Hotel> hotels = new ArrayList<>();
@@ -16,7 +17,18 @@ public class HotelService {
         hotels.add(new Hotel(6000, 3, HotelType.FOUR_STAR));
     }
 
+    // using explicitly defined functional interface for lambda function
     public List<Hotel> filterHotels(FilterCondition filterCondition){
+        List<Hotel> filteredHotels = new ArrayList<>();
+        for(Hotel hotel: hotels){
+            if(filterCondition.test(hotel))
+            filteredHotels.add(hotel);
+        }
+        return filteredHotels;
+    }
+    
+    // using predicate inbuilt functional interface for lambda function
+    public List<Hotel> filterHotelsWithPredicate(Predicate<Hotel> filterCondition){
         List<Hotel> filteredHotels = new ArrayList<>();
         for(Hotel hotel: hotels){
             if(filterCondition.test(hotel))
