@@ -1,24 +1,38 @@
+class A{
+    int val=1;
+    void method1(){
+        System.out.println("Inside Method 1");
+    }
+    class B{
+        int val=2;
+        void method2(){
+            method1();
+            System.out.println("Inside Method 2");
+        }
+    }
+    static class C{
+        int val=3;
+        void method3(){
+           System.out.println("Inside method 3");
+        }
+    }
+}
+
 public class Main {
     public static void main(String[] args) {
         System.out.println("Main is starting");
 
-//        learning how to create threads
-//        createThreads();
+        A a = new A();
+        System.out.println(a.val);
+        a.method1();
+        A.B b = a.new B();
+        System.out.println(b.val);
+        b.method2();
 
-//        learn to do synchronization
-//        makeSynchronization();
+        A.C c = new A.C();
+        System.out.println(c.val);
+        c.method3();
 
-//        producer consumer problem
-//        producerConsumer();
-
-//        thread states
-//        threadState();
-
-//        joining thread
-//        joinThread();
-
-//        creating deadlock
-        createDeadlock();
         System.out.println("Main is terminating!");
     }
 
