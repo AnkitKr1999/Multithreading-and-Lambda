@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import hotels.FilterCondition;
@@ -24,10 +26,26 @@ class A{
         }
     }
 }
-
 public class Main {
+    private int field;
+
+    private List<Hotel> testLambda(){
+        HotelService hotelService = new HotelService();
+        final int PRICE = 2000; // variable used inside lambda expression must be final
+        List<Integer> arr = new ArrayList<>(); // arr is a refernce to a list hence mutation is allowed
+        FilterCondition lambdaExp = hotel -> { // making a lambda expression reference.
+            // return hotel.getRating()<=arr.size(); // mutation of arr is allowed
+            return hotel.getPricePerNight() <= PRICE; // mutation of PRICE is not allowed
+        };
+        arr.add(1);
+        return hotelService.filterHotels(lambdaExp);
+    }
+
     public static void main(String[] args) {
-        System.out.println("Main is starting");
+        underStandingLambdaFunctions();
+    }
+
+    private static void underStandingLambdaFunctions(){
         HotelService hotelService = new HotelService();
 
         // Using Anonymous inner class to pass function in a method.
@@ -40,13 +58,18 @@ public class Main {
         // });
 
         // using lamdba function to pass function in a method.
+        // Below Hotel is a inferred parameter, explicit declaration can be omitted.
         List<Hotel> fiveStarHotels = hotelService.filterHotels((Hotel hotel) -> {
             return hotel.getHotelType() == HotelType.FIVE_STAR;
         });
         System.out.println("Five Star Hotels " + fiveStarHotels);
 
-        System.out.println();
-        
+        List<Integer> lst = new ArrayList<>(List.of(5,4,3,2,1));
+        // below Integer declaration of a,b is omitted and {} braces can be omitted for single line of code.
+        Collections.sort(lst,(a,b) -> a-b); 
+
+        System.out.println(lst);
+
         // Using Anonymous inner class to pass function in a method.
         List<Hotel> hotelsMoreThan2Ratings = hotelService.filterHotels(new FilterCondition() {
             @Override
@@ -55,8 +78,13 @@ public class Main {
             }
         });
         System.out.println("More than 2 rating Hotels " + hotelsMoreThan2Ratings);
+        System.out.println();
 
-        System.out.println("Main is terminating!");
+        // using lambda function with predicate
+        List<Hotel> hotelsMoreThan3Rating = hotelService.filterHotelsWithPredicate((hotel) -> {
+            return hotel.getRating() > 3;
+        });
+        System.out.println("More than 3 rating hotels: " + hotelsMoreThan3Rating);
     }
 
     private static void createDeadlock() {
