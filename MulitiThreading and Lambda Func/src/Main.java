@@ -1,6 +1,7 @@
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.function.Predicate;
 
 import hotels.FilterCondition;
 import hotels.Hotel;
@@ -42,7 +43,19 @@ public class Main {
     }
 
     public static void main(String[] args) {
-        underStandingLambdaFunctions();
+        // underStandingLambdaFunctions();
+        
+        combiningPredicates();
+    }
+
+    private static void combiningPredicates() {
+        // predicate is a functional interface which also contains test abstract method.
+        Predicate<Integer> divisibleBy2 = (number) -> { return number%2 == 0;}; 
+        Predicate<Integer> divisibleBy3 = number -> number%3 == 0;
+
+        Predicate<Integer> divisibleBy6 = divisibleBy2.and(divisibleBy3);
+        System.out.println(divisibleBy6.test(12));
+        System.out.println(divisibleBy6.test(15));
     }
 
     private static void underStandingLambdaFunctions(){
