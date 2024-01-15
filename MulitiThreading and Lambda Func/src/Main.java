@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.function.Consumer;
@@ -52,7 +53,26 @@ public class Main {
         
         // combiningPredicates();
 
-        differentInbuiltInterfaces();
+        // differentInbuiltInterfaces();
+
+        workingWithStreams();
+    }
+
+    private static void workingWithStreams() {
+       List<Integer> arr = Arrays.asList(5,4,3,2,1,0);
+
+       arr.stream()
+       .filter(n-> n%2==1)
+       .sorted()
+       .map(n-> n*n)
+       .forEach(System.out::println);
+
+       int sumOfOddValues = arr.stream()
+       .filter(n-> n%2==1)
+       .sorted()
+       .map(n-> n*2)
+       .reduce(0,(c,e)->c+e);
+       System.out.println("Sum of odd values in arr: "+ sumOfOddValues);
     }
 
     private static void differentInbuiltInterfaces() {
