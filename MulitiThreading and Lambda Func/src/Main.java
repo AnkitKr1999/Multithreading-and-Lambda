@@ -73,6 +73,9 @@ public class Main {
        .map(n-> n*2)
        .reduce(0,(c,e)->c+e);
        System.out.println("Sum of odd values in arr: "+ sumOfOddValues);
+
+       List<Integer> values = Arrays.asList(5,4,5,1,2,0,1,0,0,1);
+       values.stream().distinct().forEach(System.out::println);;
     }
 
     private static void differentInbuiltInterfaces() {
