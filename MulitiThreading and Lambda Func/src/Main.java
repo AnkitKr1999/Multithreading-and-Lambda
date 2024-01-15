@@ -1,24 +1,53 @@
+import java.util.List;
+
+import hotels.FilterCondition;
+import hotels.Hotel;
+import hotels.HotelService;
+import hotels.HotelType;
+
+class A{
+    int val=1;
+    void method1(){
+        System.out.println("Inside Method 1");
+    }
+    class B{
+        int val=2;
+        void method2(){
+            method1();
+            System.out.println("Inside Method 2");
+        }
+    }
+    static class C{
+        int val=3;
+        void method3(){
+           System.out.println("Inside method 3");
+        }
+    }
+}
+
 public class Main {
     public static void main(String[] args) {
         System.out.println("Main is starting");
+        HotelService hotelService = new HotelService();
 
-//        learning how to create threads
-//        createThreads();
+        // Using Anonymous inner class to pass function as a variable
 
-//        learn to do synchronization
-//        makeSynchronization();
+        List<Hotel> fiveStarHotels = hotelService.filterHotels(new FilterCondition() {
+            @Override
+            public boolean test(Hotel hotel) {
+                return hotel.getHotelType() == HotelType.FIVE_STAR;
+            }
+        });
+        System.out.println("Five Star Hotels " + fiveStarHotels);
 
-//        producer consumer problem
-//        producerConsumer();
+        List<Hotel> hotelsMoreThan2Ratings = hotelService.filterHotels(new FilterCondition() {
+            @Override
+            public boolean test(Hotel hotel) {
+                return hotel.getRating() >= 3;
+            }
+        });
+        System.out.println("More than 2 rating Hotels " + hotelsMoreThan2Ratings);
 
-//        thread states
-//        threadState();
-
-//        joining thread
-//        joinThread();
-
-//        creating deadlock
-        createDeadlock();
         System.out.println("Main is terminating!");
     }
 
