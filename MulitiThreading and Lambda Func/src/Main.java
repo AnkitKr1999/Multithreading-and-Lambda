@@ -22,6 +22,7 @@ public class Main {
     public static void main(String[] args) {
         System.out.println("Main is starting");
 
+        // inner class
         A a = new A();
         System.out.println(a.val);
         a.method1();
@@ -29,6 +30,7 @@ public class Main {
         System.out.println(b.val);
         b.method2();
 
+        // static inner class
         A.C c = new A.C();
         System.out.println(c.val);
         c.method3();
