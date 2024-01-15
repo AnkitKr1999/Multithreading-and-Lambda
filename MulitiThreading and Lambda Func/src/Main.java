@@ -1,3 +1,10 @@
+import java.util.List;
+
+import hotels.FilterCondition;
+import hotels.Hotel;
+import hotels.HotelService;
+import hotels.HotelType;
+
 class A{
     int val=1;
     void method1(){
@@ -21,19 +28,25 @@ class A{
 public class Main {
     public static void main(String[] args) {
         System.out.println("Main is starting");
+        HotelService hotelService = new HotelService();
 
-        // inner class
-        A a = new A();
-        System.out.println(a.val);
-        a.method1();
-        A.B b = a.new B();
-        System.out.println(b.val);
-        b.method2();
+        // Using Anonymous inner class to pass function as a variable
 
-        // static inner class
-        A.C c = new A.C();
-        System.out.println(c.val);
-        c.method3();
+        List<Hotel> fiveStarHotels = hotelService.filterHotels(new FilterCondition() {
+            @Override
+            public boolean test(Hotel hotel) {
+                return hotel.getHotelType() == HotelType.FIVE_STAR;
+            }
+        });
+        System.out.println("Five Star Hotels " + fiveStarHotels);
+
+        List<Hotel> hotelsMoreThan2Ratings = hotelService.filterHotels(new FilterCondition() {
+            @Override
+            public boolean test(Hotel hotel) {
+                return hotel.getRating() >= 3;
+            }
+        });
+        System.out.println("More than 2 rating Hotels " + hotelsMoreThan2Ratings);
 
         System.out.println("Main is terminating!");
     }
